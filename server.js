@@ -9,8 +9,8 @@ process.on("uncaughtException", (err) => {
 
 //todo: listen to port
 console.log("server working fine");
-const server = app.listen(5000, () => {
-  console.log("server is working on port " + 5000);
+const server = app.listen(5005, () => {
+  console.log("server is working on port " + 5005);
 });
 
 //! handling unhandled promise rejections
