@@ -44,7 +44,7 @@ const Register = () => {
     };
     console.log(data);
 
-    fetch("http://localhost:5000/api/v1/send-email", {
+    fetch("https://tedxapi.deerwalk.edu.np", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
