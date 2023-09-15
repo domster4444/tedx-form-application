@@ -10,13 +10,16 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
     // phonenumber must be a number
     if (isNaN(phoneNumber)) {
       alert("Phone number must be a number.");
+      setIsLoading(false);
       return;
     }
 
@@ -28,9 +31,10 @@ const Register = () => {
 
       if (phoneNumber[0] !== "9") {
         alert("Phone number must start with 9.");
+        setIsLoading(false);
         return;
       }
-
+      setIsLoading(false);
       return;
     }
 
@@ -50,15 +54,20 @@ const Register = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((response) => {
-      console.log(response);
-      if (response.status === 200) {
-        document.body.style.backgroundColor = "black";
-        document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top: 20rem;'>You have been registered !</h1> <br/> <p style='text-align:center;margin-top:0.6rem;'>We will contact you shortly following ticket details.</p>";
-      } else {
-        alert("Something went wrong. Please try again later.");
-      }
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          document.body.style.backgroundColor = "black";
+          document.body.innerHTML =
+            "<h1 style='color:white; text-align:center; margin-top: 20rem;'>You have been registered !</h1> <br/> <p style='text-align:center;margin-top:0.6rem;'>We will contact you shortly following ticket details.</p>";
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return (
     <div>
@@ -85,8 +94,15 @@ const Register = () => {
             | DWIT College
           </h2>
         </div>
-        <div style={{ display: "flex", width: "50%", marginTop: "1rem", marginBottom: ".25rem" }}>
-          <img src={TedxDWITLogo} width='50%' height='50%' />
+        <div
+          style={{
+            display: "flex",
+            width: "50%",
+            marginTop: "1rem",
+            marginBottom: ".25rem",
+          }}
+        >
+          <img src={TedxDWITLogo} width="50%" height="50%" />
         </div>
       </header>
       <form>
@@ -111,26 +127,70 @@ const Register = () => {
               margin: "auto",
             }}
           >
-            <input type='text' placeholder='First Name' className='input-field' required onChange={(e) => setFirstName(e.target.value)} />
-            <input type='text' placeholder='Middle Name' className='input-field' onChange={(e) => setMiddleName(e.target.value)} />
-            <input type='text' placeholder='Last Name' className='input-field' required onChange={(e) => setLastName(e.target.value)} />
-            <input type='email' placeholder='Email' className='input-field' required onChange={(e) => setEmail(e.target.value)} />
-            <input type='text' placeholder='Phone Number' className='input-field' required onChange={(e) => setPhoneNumber(e.target.value)} />
-            <input type='text' placeholder='Address' className='input-field' required onChange={(e) => setAddress(e.target.value)} />
-
             <input
-              className='submit'
+              type="text"
+              placeholder="First Name"
+              className="input-field"
+              required
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Middle Name"
+              className="input-field"
+              onChange={(e) => setMiddleName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              className="input-field"
+              required
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="input-field"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              className="input-field"
+              required
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              className="input-field"
+              required
+              onChange={(e) => setAddress(e.target.value)}
+            />
+
+            <button
+              className="submit"
               style={{
                 border: "none",
-                outine: "none",
+                outline: "none",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
+                position: "relative", // Add this to position spinner
               }}
               onClick={handleSubmit}
-              value='Submit'
-            />
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <div className="spinner"></div>
+                </>
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         </div>
       </form>
