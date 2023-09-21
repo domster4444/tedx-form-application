@@ -1,6 +1,5 @@
 import React from "react";
 import TedxDWITLogo from "../asset/logo-white.png";
-import RegisterQR from "../asset/Register QR.png";
 import "../App.css";
 import { useState } from "react";
 
@@ -12,7 +11,6 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [receipt, setRecipt] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,22 +35,25 @@ const Register = () => {
         return;
       }
       setIsLoading(false);
-
       return;
     }
 
-    const data = new FormData();
-    data.append("firstName", firstName);
-    data.append("middleName", middleName);
-    data.append("lastName", lastName);
-    data.append("email", email);
-    data.append("phoneNumber", phoneNumber);
-    data.append("address", address);
-    data.append("receipt", receipt);
+    const data = {
+      firstName,
+      middleName,
+      lastName,
+      email,
+      phoneNumber,
+      address,
+    };
+    console.log(data);
 
     fetch("https://tedxapi.deerwalk.edu.np/api/v1/send-email", {
       method: "POST",
-      body: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
       .then((response) => {
         console.log(response);
@@ -166,20 +167,6 @@ const Register = () => {
               className="input-field"
               required
               onChange={(e) => setAddress(e.target.value)}
-            />
-            <div className="form-paragraph">
-              <p>For purchasing the ticket, please scan the QR code</p>
-              <p>Ticket Fare: Rs 1000</p>
-              <div>
-                <img src={RegisterQR} className="register-qr" />
-              </div>
-            </div>
-            <p>Please upload your voucher here</p>
-
-            <input
-              type="file"
-              className="input-field"
-              onChange={(e) => setRecipt(e.target.files[0])}
             />
 
             <button

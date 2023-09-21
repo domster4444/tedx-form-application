@@ -1,24 +1,10 @@
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-require("dotenv").config();
 const nodemailer = require("nodemailer");
 exports.sendEmailController = catchAsyncErrors(async (request, response) => {
-  const { firstName, middleName, lastName, email, phoneNumber, address } =
-    request.body;
-
-  const file = request.files.receipt;
-  console.log("res==========");
-  const timestamp = Date.now();
-  const fileName = `photo_${timestamp}.jpeg`;
-
-  file.mv(`./storage/${fileName}`, (error) => {
-    if (error) {
-      return response.status(500).send(error);
-    }
-    console.log("File Uploaded");
-  });
+  const { firstName, middleName, lastName, email, phoneNumber, address } = request.body;
 
   var from = "donotreplythisback@gmail.com";
-  var to = "texdwitcollege@gmail.com";
+  var to = "tedxdwitcollege@gmail.com";
   var subject = "Participant Details:";
 
   var transporter = nodemailer.createTransport({
@@ -28,7 +14,6 @@ exports.sendEmailController = catchAsyncErrors(async (request, response) => {
       pass: "sajjhjleycfzonhx",
     },
   });
-  const url = `${process.env.URL}/storage/${fileName}`;
 
   var mailOptions = {
     from: from,
@@ -52,7 +37,6 @@ exports.sendEmailController = catchAsyncErrors(async (request, response) => {
             <th style="border: 1px solid #dddddd; padding: 8px;">Phone Number</th>
             <th style="border: 1px solid #dddddd; padding: 8px;">Email</th>
             <th style="border: 1px solid #dddddd; padding: 8px;">Address</th>
-            <th style="border" 1px solid #dddddd; padding: 8px;">Receipt URL</th>
         </tr>
         <tr>
 
@@ -63,7 +47,6 @@ exports.sendEmailController = catchAsyncErrors(async (request, response) => {
         <td style="border: 1px solid #dddddd; padding: 8px;">${phoneNumber}</td>
             <td style="border: 1px solid #dddddd; padding: 8px;">${email}</td>
             <td style="border: 1px solid #dddddd; padding: 8px;">${address}</td>
-            <td style="border" 1px solid #dddddd; padding: 8px;">${url}</th>
         </tr>
     </table>`,
   };

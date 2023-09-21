@@ -1,10 +1,6 @@
 //? config app
 const express = require("express");
-const fileUpload = require("express-fileupload");
-const path = require("path");
 const app = express();
-
-const appRoot = __dirname;
 
 //?config dotenv file
 const dotenv = require("dotenv");
@@ -34,10 +30,8 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //todo: routes imports
-app.use(fileUpload());
 const testRoutes = require("./routes/testRoutes");
 app.use("/api/v1", testRoutes);
-app.use("/storage", express.static(path.join(appRoot, "storage")));
 
 app.get("/", (req, res) => {
   res.status(200).json({

@@ -56,20 +56,6 @@
   cursor: not-allowed;
 }
 
-.form-paragraph {
-  display: flex;
-  flex-direction: column;
-  line-height: 3rem;
-}
-
-.register-qr {
-  width: 50%;
-  height: auto;
-}
-.qr-div {
-  display: flex;
-  align-items: center;
-}
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #e60027;
