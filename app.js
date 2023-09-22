@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// connnect db
+const connectDB = require("./config/connectdb");
+connectDB();
+
 //todo: routes imports
 app.use(fileUpload());
 const testRoutes = require("./routes/testRoutes");
