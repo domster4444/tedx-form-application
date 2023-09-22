@@ -1,6 +1,7 @@
-import MultiPageForm from "./screen/MultiPageForm";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./screen/Register";
+import Login from "./screen/Login";
+import Dashboard from "./screen/Dashboard";
 import "./App.css";
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route>
-            <Route path="/" element={<Register />} />
+            <Route path='/' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/dashboard/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' element={<Dashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -4,6 +4,8 @@ import RegisterQR from "../asset/Register QR.png";
 import "../App.css";
 import { useState } from "react";
 
+import styled from "styled-components";
+
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -58,8 +60,7 @@ const Register = () => {
         console.log(response);
         if (response.status === 200) {
           document.body.style.backgroundColor = "black";
-          document.body.innerHTML =
-            "<h1 style='color:white; text-align:center; margin-top: 20rem;'>You have been registered !</h1> <br/> <p style='text-align:center;margin-top:0.6rem;'>We will contact you shortly following ticket details.</p>";
+          document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top: 20rem;'>You have been registered !</h1> <br/> <p style='text-align:center;margin-top:0.6rem;'>We will contact you shortly following ticket details.</p>";
         } else {
           alert("Something went wrong. Please try again later.");
         }
@@ -68,8 +69,15 @@ const Register = () => {
         setIsLoading(false);
       });
   };
+
   return (
-    <div>
+    <div
+      style={{
+        background: "black",
+        color: "white",
+        paddingBottom: "2rem",
+      }}
+    >
       <header
         style={{
           display: "flex",
@@ -101,7 +109,7 @@ const Register = () => {
             marginBottom: ".25rem",
           }}
         >
-          <img src={TedxDWITLogo} width="50%" height="50%" />
+          <img src={TedxDWITLogo} width='50%' height='50%' />
         </div>
       </header>
       <form>
@@ -126,64 +134,25 @@ const Register = () => {
               margin: "auto",
             }}
           >
-            <input
-              type="text"
-              placeholder="First Name"
-              className="input-field"
-              required
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Middle Name"
-              className="input-field"
-              onChange={(e) => setMiddleName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="input-field"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="input-field"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Phone Number"
-              className="input-field"
-              required
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Address"
-              className="input-field"
-              required
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <div className="form-paragraph">
+            <input type='text' placeholder='First Name' className='input-field' required onChange={(e) => setFirstName(e.target.value)} />
+            <input type='text' placeholder='Middle Name' className='input-field' onChange={(e) => setMiddleName(e.target.value)} />
+            <input type='text' placeholder='Last Name' className='input-field' required onChange={(e) => setLastName(e.target.value)} />
+            <input type='email' placeholder='Email' className='input-field' required onChange={(e) => setEmail(e.target.value)} />
+            <input type='text' placeholder='Phone Number' className='input-field' required onChange={(e) => setPhoneNumber(e.target.value)} />
+            <input type='text' placeholder='Address' className='input-field' required onChange={(e) => setAddress(e.target.value)} />
+            <div className='form-paragraph'>
               <p>For purchasing the ticket, please scan the QR code</p>
               <p>Ticket Fare: Rs 1000</p>
               <div>
-                <img src={RegisterQR} className="register-qr" />
+                <img src={RegisterQR} className='register-qr' />
               </div>
             </div>
             <p>Please upload your voucher here</p>
 
-            <input
-              type="file"
-              className="input-field"
-              onChange={(e) => setRecipt(e.target.files[0])}
-            />
+            <input type='file' className='input-field' onChange={(e) => setRecipt(e.target.files[0])} />
 
             <button
-              className="submit"
+              className='submit'
               style={{
                 border: "none",
                 outline: "none",
@@ -198,7 +167,7 @@ const Register = () => {
             >
               {isLoading ? (
                 <>
-                  <div className="spinner"></div>
+                  <div className='spinner'></div>
                 </>
               ) : (
                 "Submit"
